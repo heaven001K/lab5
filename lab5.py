@@ -45,6 +45,14 @@ class Elections:
 
         winner_people = max(self.candidates, key=self.candidates.get)
         return winner_people
+
+    def congratulate_winner(self):
+        """
+        Congratulates the winner of the election.
+        """
+        winner = self.calculate_winner()
+        if winner:
+            print(f"Congratulations, {winner}! You are the winner of the election.")
     def get_percentage(self, votes):
         """
         Calculates the percentage of votes compared to the total votes.
@@ -56,7 +64,13 @@ class Elections:
             float: The percentage of votes.
         """
         total_votes = sum(self.candidates.values())
-        return (votes / total_votes) * 100 if total_votes > 0 else 0
+
+        try:
+            percentage = (votes / total_votes) * 100
+        except ZeroDivisionError:
+            percentage = 0
+
+        return percentage
 
     def get_results(self):
         """
@@ -68,7 +82,7 @@ class Elections:
         for name, votes in self.candidates.items():
             percentage = self.get_percentage(votes)
             print(f'Candidate {name} has {votes} votes, which is {percentage}% of all votes')
-
+    
 if __name__ == "__main__":
     election = Elections()
     candidates_data = [Candidate("a", 50), Candidate("b", 51), Candidate("c", 60)]
@@ -83,3 +97,4 @@ if __name__ == "__main__":
         print("No winner. There are no candidates in the election.")
 
     election.get_results()
+    election.congratulate_winner()

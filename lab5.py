@@ -97,4 +97,4 @@ if __name__ == "__main__":
         print("No winner. There are no candidates in the election.")
 
     election.get_results()
-    election.congratulate_winer()
+    election.congratulate_winner()

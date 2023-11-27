@@ -64,7 +64,13 @@ class Elections:
             float: The percentage of votes.
         """
         total_votes = sum(self.candidates.values())
-        return (votes / total_votes) * 100 if total_votes > 0 else 0
+
+        try:
+            percentage = (votes / total_votes) * 100
+        except ZeroDivisionError:
+            percentage = 0
+
+        return percentage
 
     def get_results(self):
         """
